@@ -1,0 +1,13 @@
+# Ping all servers inventory file 
+#My host inventory file 
+
+[webservers]
+webserver01 ansible_host=192.168.2.11 ansible_user=ansible
+webserver02 ansible_host=192.168.2.12 ansible_user=ansible 
+
+[dbservers]
+dbserver01 ansible_host=192.168.2.13 ansible_user=ansible
+dbserver02 ansible_host=192.168.2.14 ansible_user=ansible
+
+[wordpress]
+wordpress01 ansible_host=192.168.2.21 ansible_user=ansible ansible_python_interpreter=/usr/bin/python3

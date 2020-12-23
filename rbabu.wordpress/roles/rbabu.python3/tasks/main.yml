@@ -1,0 +1,16 @@
+---
+# tasks file for rbabu.python3
+
+
+# Install python3-pip and pymysql dependency packages 
+- name: "Install python3 pip"
+  apt:
+    name: python3-pip
+    state: present
+
+- name: "Make sure pymysql is present"
+  pip:
+    name: pymysql
+    state: present
+
+

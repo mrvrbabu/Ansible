@@ -1,0 +1,4 @@
+---
+# vars file for rbabu.mysql
+
+mysql_root_password: "rootdbuser"

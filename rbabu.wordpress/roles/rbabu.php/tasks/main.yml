@@ -1,0 +1,29 @@
+---
+# tasks file for rbabu.php
+
+- name: "Add the ondrej PHP PPA repo"
+  apt_repository: 
+    repo: 'ppa:ondrej/php'
+
+- name: "Update the apt cache"
+  apt: 
+    update_cache: yes 
+    cache_valid_time: 3600
+
+- name: "Installing PHP"
+  apt: 
+    name: php 
+    state: present
+
+- name: "Installing PHP dependency packages"
+  apt: 
+    name: ['php', 'php-fpm', 'php-mysql', 'php-xml'] 
+    state: present
+
+
+# Remove apache as we do not require it 
+- name: "Removing apache2 as we do not require it "
+  apt: 
+    name: apache2 
+    state: absent
+

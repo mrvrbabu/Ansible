@@ -1,0 +1,44 @@
+---
+# tasks file for rbabu.wordpress
+
+
+# Copy the wordpress zip file 
+- name: "Starting wordpress deployment, copying wordpress zip into tmp"
+  copy: 
+    src: wordpress.zip 
+    dest: /tmp/wordpress.zip 
+
+- name: "Install required tools 'unzip'"
+  apt: 
+    name: unzip 
+    state: present 
+
+# Unziping wordpress
+- name: "Unzip WordPress"
+  unarchive: 
+    src: /tmp/wordpress.zip 
+    dest: /tmp 
+    copy: no 
+    creates: /tmp/wordpress/wp-settings.php
+
+- name: "Create project folder"
+  file: 
+    dest: /var/www/wordpress.homeoffice.net 
+    state: directory
+
+- name: "Copy WordPress files"
+  command: cp -a /tmp/wordpress/. /var/www/wordpress.homeoffice.net creates=/var/www/wordpress.homeoffice.net/wp-settings.php
+
+# Create wordpress db in MySQL database
+- name: "Create WordPress MySQL database"
+  mysql_db: 
+    name: wordpress 
+    state: present
+
+# Creating wordpress users in MySQL database
+- name: Create WordPress MySQL user
+  mysql_user: 
+    name: wordpress 
+    host: localhost 
+    password: password 
+    priv: wordpress.*:ALL

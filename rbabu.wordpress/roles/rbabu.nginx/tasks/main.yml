@@ -1,0 +1,22 @@
+---
+# tasks file for rbabu.nginx
+
+- name: "Installing nginx"
+  apt:
+    name: nginx 
+    state: present
+
+
+# Create nginx config
+- name: "Creating nginx config"
+  template: 
+    src: default 
+    dest: /etc/nginx/sites-available/default
+    notify: 
+      - Staring nginx service
+
+
+- name: "Staring nginx service from main"
+  service: 
+    name: nginx 
+    state: started

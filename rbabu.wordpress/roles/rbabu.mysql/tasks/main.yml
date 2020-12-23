@@ -1,0 +1,43 @@
+---
+# tasks file for rbabu.mysql
+
+# MySQL
+- name: Install MySQL
+  apt: 
+    name: ['mysql-server', 'python-mysqldb']
+    state: present
+
+
+- name: "Create my.cnf for root user to access db"
+  template: 
+    src: my.cnf 
+    dest: /root/.my.cnf
+
+
+# MySQL Configuration
+- name: "Setting the root password"
+  mysql_user:
+    name: root
+    password: "{{ mysql_root_password }}"
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+
+# Remove all anonymous user accounts 
+- name: "Removing all anonymous user accounts from mysqldb"
+  mysql_user:
+    name: ''
+    host_all: yes
+    state: absent
+    login_user: root
+    login_password: "{{ mysql_root_password }}"
+
+# Remove the default test database
+- name: "Removing the default test database"
+  mysql_db:
+    name: test
+    state: absent
+    login_user: root
+    login_password: "{{ mysql_root_password }}"
+
+- name: "This is the mysql root user password"
+  debug: msg="New root user password is {{ mysql_root_password }}"
+

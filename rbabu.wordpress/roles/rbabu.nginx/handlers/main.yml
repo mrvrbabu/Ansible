@@ -1,0 +1,7 @@
+---
+# handlers file for rbabu.nginx
+
+  - name: "Staring nginx service"
+    service: 
+      name: nginx 
+      state: started

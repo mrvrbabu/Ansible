@@ -1,0 +1,16 @@
+# Main playbook to install wordpress app and its dependencies 
+
+--- 
+- 
+  name: "This playbook will install wordpress and its required dependencies such as php, mysql nginx and deploy the wordpress app itself"
+  hosts: wordpress01
+  become: true
+  roles: 
+    - rbabu.php
+    - rbabu.python3
+    - rbabu.mysql
+    - rbabu.nginx
+    - rbabu.wordpress
+  tasks:
+    - name: "Welcome to my wordpress"
+      ping:
