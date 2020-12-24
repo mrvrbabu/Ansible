@@ -12,8 +12,12 @@
   template: 
     src: default 
     dest: /etc/nginx/sites-available/default
-    notify: 
-      - Staring nginx service
+    owner: root
+    group: root
+    mode: '0644'
+    #notify: 
+    #  - "Staring nginx service from main"
+
 
 
 - name: "Staring nginx service from main"

@@ -10,7 +10,10 @@
     - rbabu.python3
     - rbabu.mysql
     - rbabu.nginx
-    - rbabu.wordpress
+    - role: rbabu.wordpress
+      database_name: wordpress
+      database_user: wordpress
+      database_password: rootdbuser
   tasks:
     - name: "Welcome to my wordpress"
       ping:

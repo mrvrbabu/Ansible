@@ -29,16 +29,21 @@
 - name: "Copy WordPress files"
   command: cp -a /tmp/wordpress/. /var/www/wordpress.homeoffice.net creates=/var/www/wordpress.homeoffice.net/wp-settings.php
 
+- name: "Copy the wp-config.php to wordpress document root"
+  copy :
+    src: wp-config.php
+    dest: /var/www/wordpress.homeoffice.net
+
 # Create wordpress db in MySQL database
 - name: "Create WordPress MySQL database"
   mysql_db: 
-    name: wordpress 
+    name: "{{database_name}}"
     state: present
 
 # Creating wordpress users in MySQL database
 - name: Create WordPress MySQL user
   mysql_user: 
-    name: wordpress 
+    name: "{{database_user}}"
     host: localhost 
-    password: password 
-    priv: wordpress.*:ALL
+    password: "{{database_password}}" 
+    priv: "{{database_name}}.*:ALL"
