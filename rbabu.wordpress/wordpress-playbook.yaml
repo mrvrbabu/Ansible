@@ -18,3 +18,5 @@
   tasks:
     - name: "Welcome to my wordpress"
       ping:
+    
+    - debug: msg="Your website url is http://{{wp_domain}}"
