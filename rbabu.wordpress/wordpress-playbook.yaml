@@ -14,6 +14,7 @@
       database_name: wordpress
       database_user: wordpress
       database_password: rootdbuser
+      wp_domain: wordpress.homeoffice.net
   tasks:
     - name: "Welcome to my wordpress"
       ping:

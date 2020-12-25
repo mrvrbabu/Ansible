@@ -23,16 +23,20 @@
 
 - name: "Create project folder"
   file: 
-    dest: /var/www/wordpress.homeoffice.net 
+    dest: /var/www/{{wp_domain}} 
     state: directory
 
+# Display name and url of wordpress website
+#- name: "Your website name is "
+
+
 - name: "Copy WordPress files"
-  command: cp -a /tmp/wordpress/. /var/www/wordpress.homeoffice.net creates=/var/www/wordpress.homeoffice.net/wp-settings.php
+  command: cp -a /tmp/wordpress/. /var/www/{{wp_domain}} creates=/var/www/{{wp_domain}}/wp-settings.php
 
 - name: "Copy the wp-config.php to wordpress document root"
   copy :
     src: wp-config.php
-    dest: /var/www/wordpress.homeoffice.net
+    dest: /var/www/{{wp_domain}}
 
 # Create wordpress db in MySQL database
 - name: "Create WordPress MySQL database"
