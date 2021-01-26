@@ -1,0 +1,47 @@
+---
+- name: 'Install and run httpd service'
+  become: true
+  hosts: centos
+  tasks: 
+  - name: "Install httpd package"
+    yum: 
+        name: httpd
+        state: present
+
+  - name: "Deploy hello world index file"
+    copy:
+        content: "Hello Ansible" 
+        dest: /var/www/html/index.html
+
+  - name: "Start httpd service" 
+    service: 
+        name: httpd
+        state: started 
+        enabled: true
+
+  - name: "Install firewalld"
+    yum:
+      name: firewalld
+      state: latest
+
+  - name: "Start firewalld service"
+    service:
+      name: firewalld
+      state: started
+      enabled: true
+
+  - name: "Open firewall port"
+    ansible.posix.firewalld: 
+      port: 80/tcp
+      permanent: yes
+      state: enabled
+        
+- name: "Testing apache service"
+  hosts: localhost
+  become: no
+  tasks: 
+  - name: connect to web server 
+    uri:
+       url: http://adhoc-centos8.homeoffice.net
+       return_content: yes
+       status_code: 200

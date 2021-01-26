@@ -1,0 +1,22 @@
+---
+- name: deploy vsftpd
+  become: true
+  hosts: centos
+  tasks:
+  - name: install vsftpd
+    yum: 
+      name: vsftpd
+      state: present
+  
+  - name: Enable vsftpd 
+    service:
+      name: vsftpd
+      state: started
+      enabled: true
+    
+  - name: Create readme file 
+    copy:
+      content: "Free downloads for everybody"
+      dest: /var/ftp/pub/README
+      force: no
+      mode: 0444
